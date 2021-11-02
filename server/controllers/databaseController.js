@@ -3,6 +3,21 @@ const url = require('url');
 
 const databaseController = {};
 
+// takes an object of key value pairs to insert as row into db table
+// where key is name of column and value is associated value
+// returns SQL string
+const insertRowSQL = (table, colsVals) => {
+  const cols = Object.keys(colsVals);
+  const vals = [];
+  
+  cols.forEach(col => {
+    vals.push(colsVals[col])
+  });
+
+  return `INSERT INTO ${table} (${cols}) VALUES (${vals})`
+}
+
+
 databaseController.findUser = async (req, res, next) => {
   const user_id = req.params.user_id; // receive from front end
   const queryString = `SELECT * FROM users WHERE _id = ${user_id}`
