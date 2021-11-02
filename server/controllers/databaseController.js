@@ -36,6 +36,7 @@ databaseController.getConnections = async (req, res, next) => {
         console.log(connections);
         res.locals.connections = connections;
       });
+    next();
   }
   catch {
     next({
