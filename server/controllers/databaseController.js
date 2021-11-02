@@ -24,7 +24,10 @@ const findByValue = (table, col, val) => {
   return `SELECT * FROM ${table} WHERE ${col} = ${val}`;
 }
 
-console.log(findByValue('users', '_id', 1000));
+// takes a table and returns all rows in that table
+const getAllRows = (table) => {
+  return `SELECT * FROM ${table} LIMIT 100`;  
+}
 
 ///////// USERS /////////
 // fields for users table:
@@ -36,13 +39,12 @@ console.log(findByValue('users', '_id', 1000));
   // profile_picture
   // connections
 
-
+// given a user_id, find a user --> 
 databaseController.findUser = async (req, res, next) => {
   const user_id = req.params.user_id; // receive from front end
-  const queryString = findByValue('users', '_id', user_id);
 
   try {
-    await db.query(queryString)
+    await db.query(findByValue('users', '_id', user_id))
       .then(userData => {
         console.log(userData);
         res.locals.userData = userData;
@@ -58,14 +60,29 @@ databaseController.findUser = async (req, res, next) => {
     });
   }
 };
-
-// TODO: parse connections so frontend receives an array?
-databaseController.getConnections = async (req, res, next) => {
-  // const user_id = req.params.user_id; // will eventually need to parse connections based on user logged in
-  const queryString = `SELECT * FROM "public"."connections" LIMIT 100 WHERE`
+// given an object of properties/vals about a user --> 
+databaseController.addUser = async (req, res, next) => {
+  // expects object with keys _id, user_token, first_name, last_name, connections (optional: email_address, profile_picture)
+  const user_info = req.params.user_info;
 
   try {
-    await db.query(queryString)
+    await db.query(insertRowSQL('users', user_info));
+    next();
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.addUser',
+      status: 500,
+      message: {err: 'Error in databaseController.addUser'},
+    });
+  }
+};
+// given a user_id, get all that users connections // TODO: parse connections so frontend receives an array?
+databaseController.getConnections = async (req, res, next) => {
+  // const user_id = req.params.user_id; // will eventually need to parse connections based on user logged in
+
+  try {
+    await db.query(getAllRows(connections))
       .then(connections => {
         console.log(connections);
         res.locals.connections = connections;
@@ -87,13 +104,12 @@ databaseController.getConnections = async (req, res, next) => {
   // group_name
   // contact_freq
 
-// find group in db --> SELECT * FROM "public"."groups" WHERE _group_id = PASS IN GROUP ID
+// given a group id, find that group and pass the row back to front end --> SELECT * FROM "public"."groups" WHERE _group_id = PASS IN GROUP ID
 databaseController.findGroup = async (req, res, next) => {
   const group_id = req.params.group_id; // receive from front end
-  const queryString = `SELECT * FROM users WHERE _id = ${group_id}`
 
   try {
-    await db.query(queryString)
+    await db.query(findByValue(groups, _group_id, group_id))
       .then(groupData => {
         console.log(groupData);
         res.locals.groupData = groupData;
@@ -109,17 +125,13 @@ databaseController.findGroup = async (req, res, next) => {
     });
   }
 };
-
-// get all groups in db --> SELECT * FROM "public"."groups" LIMIT 100
-
-// add group to db --> INSERT INTO groups (_group_id, group_name, contact_freq) VALUES (4000, 'High Priority', 'Monthly')
+// given an obj of properties/vals about a group --> INSERT INTO groups (_group_id, group_name, contact_freq) VALUES (4000, 'High Priority', 'Monthly')
 databaseController.addGroup = async (req, res, next) => {
   // expects object with keys _group_id, group_name, contact_freq and their associated values
   const group_info = req.params.group_info;
-  const queryString = insertRowSQL('groups', group_info);
 
   try {
-    await db.query(queryString);
+    await db.query(insertRowSQL('groups', group_info));
     next();
   }
   catch {
@@ -130,12 +142,62 @@ databaseController.addGroup = async (req, res, next) => {
     });
   }
 };
+// get all groups in db --> SELECT * FROM "public"."groups" LIMIT 100
+databaseController.getGroups = async (req, res, next) => {
 
-// USERS
-// add user to db
-// INSERT INTO users (_id, first_name, last_name, email_address) VALUES (1000, 'lu', 'pin', 'lupe@in.com')
+  try {
+    await db.query(getAllRows(groups))
+      .then(groups => {
+        console.log(groups);
+        res.locals.connections = groups;
+      });
+    next();
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.getGroups',
+      status: 500,
+      message: {err: 'Error in databaseController.getGroups'},
+    });
+  }
+};
 
+///////// CONNECTIONS /////////
+  // fields for connections table:
+    // _connection_id
+    // first_name
+    // last_name
+    // email_address
+    // group_id
+    // profile_picture
+    // notes
+    // quality
+    // user_id
+// given a connection_id, find a connection
+databaseController.findConnection = async (req, res, next) => {
+  const connection_id = req.params.connection_id; // receive from front end
 
+  try {
+    await db.query(findByValue(connections, _connection_id, connection_id))
+      .then(connectionData => {
+        console.log(connectionData);
+        res.locals.connectionData = connectionData;
+      });
+    // what happens when the connection isn't found in the db??
+    next();  
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.findConnection',
+      status: 500,
+      message: {err: 'Error in databaseController.findConnection'},
+    });
+  }
+};
+
+// given an array of objects with connection info, add connection(s)
+
+// given a connection_id and some field/val to update, update connection properties
 // CONNECTIONS
 // edit connection in db (returns row that was updated)
   // update quality rating
@@ -180,16 +242,7 @@ databaseController.addGroup = async (req, res, next) => {
 //     3,
 //     1000
 //   )
-// fields for connections table:
-  // _connection_id
-  // first_name
-  // last_name
-  // email_address
-  // group_id
-  // profile_picture
-  // notes
-  // quality
-  // user_id
+
 
 
 // To list the column names of a table:
