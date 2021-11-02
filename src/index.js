@@ -4,6 +4,6 @@ import styles from '/styles/styles.scss';
 import App from '/src/App.jsx';
 
 render (
-  <App></App>,
+  <App/>,
   document.getElementById('root')
 )
