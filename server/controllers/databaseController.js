@@ -194,8 +194,23 @@ databaseController.findConnection = async (req, res, next) => {
     });
   }
 };
+// given an objects with connection info, add connection
+databaseController.addConnections = async (req, res, next) => {
+  // expects object with keys _group_id, group_name, contact_freq and their associated values
+  const connection_info = req.params.connection_info;
 
-// given an array of objects with connection info, add connection(s)
+  try {
+    await db.query(insertRowSQL('connections', connection_info));
+    next();
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.addConnection',
+      status: 500,
+      message: {err: 'Error in databaseController.addConnection'},
+    });
+  }
+};
 
 // given a connection_id and some field/val to update, update connection properties
 // CONNECTIONS
