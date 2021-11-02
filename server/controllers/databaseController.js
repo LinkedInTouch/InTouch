@@ -1,11 +1,7 @@
 const db = require('../models/databaseModels.js')
 const url = require('url');
 
-const databaseController = {};
-
 ///////// SQL STRING GENERATOR FUNCS /////////
-// return SQL strings
-
 // takes an object of key value pairs to insert as row into db table where key is name of column and value is associated value
 const insertRow = (table, colsVals) => {
   const cols = Object.keys(colsVals);
@@ -32,6 +28,8 @@ const getAllColumns = (table) => {
 const editValue = (table, idCol, id, updateCol, newVal) => {
   return `UPDATE ${table} SET ${updateCol} = ${newVal} WHERE ${idCol} = ${id} RETURNING *`
 }
+
+const databaseController = {};
 
 ///////// USERS /////////
 // fields for users table:
