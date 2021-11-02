@@ -1,14 +1,50 @@
-// To list the column names of a table:
-  // SELECT COLUMN_NAME
-  // FROM INFORMATION_SCHEMA.COLUMNS
-  // WHERE TABLE_NAME = 'Your Table Name'
-  // ORDER BY ORDINAL_POSITION
+const db = require('../models/databaseModels.js')
+const url = require('url');
 
-// get user profile info
+const databaseController = {};
 
-// get all connections
-  // add to 
-// 
+databaseController.findUser = async (req, res, next) => {
+  const user_id = req.params.user_id; // receive from front end
+  const queryString = `SELECT * FROM users WHERE _id = ${user_id}`
+
+  try {
+    await db.query(queryString)
+      .then(userData => {
+        console.log(userData);
+        res.locals.userData = userData;
+      });
+    // what happens when the user isn't found in the db??
+    next();  
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.findUser',
+      status: 500,
+      message: {err: 'Error in databaseController.findUser'},
+    });
+  }
+};
+
+// TODO: parse connections so frontend receives an array?
+databaseController.getConnections = async (req, res, next) => {
+  // const user_id = req.params.user_id; // will eventually need to parse connections based on user logged in
+  const queryString = `SELECT * FROM "public"."connections" LIMIT 100 WHERE`
+
+  try {
+    await db.query(queryString)
+      .then(connections => {
+        console.log(connections);
+        res.locals.connections = connections;
+      });
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.getConnections',
+      status: 500,
+      message: {err: 'Error in databaseController.getConnections'},
+    });
+  }
+};
 
 // GROUPS
 // add group to db
@@ -84,3 +120,10 @@
   // notes
   // quality
   // user_id
+
+
+// To list the column names of a table:
+  // SELECT COLUMN_NAME
+  // FROM INFORMATION_SCHEMA.COLUMNS
+  // WHERE TABLE_NAME = 'Your Table Name'
+  // ORDER BY ORDINAL_POSITION
