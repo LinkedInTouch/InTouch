@@ -254,5 +254,4 @@ databaseController.getColumns = async (req, res, next) => {
   }
 };
 
-
-databaseController.findUser({params: {user_id: 1000}}, {locals: {}}, () => console.log('hello'));
+module.exports = databaseController;
