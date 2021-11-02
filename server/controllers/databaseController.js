@@ -50,6 +50,7 @@ databaseController.findUser = async (req, res, next) => {
       .then(userData => {
         console.log(userData);
         res.locals.userData = userData;
+        console.log('inside finduser', res.locals.userData);
       });
     // what happens when the user isn't found in the db??
     next();  
@@ -252,3 +253,6 @@ databaseController.getColumns = async (req, res, next) => {
     });
   }
 };
+
+
+// databaseController.findUser({params: {user_id: 1000}}, {locals: {}}, () => console.log('hello'));
