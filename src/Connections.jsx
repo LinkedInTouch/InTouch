@@ -1,63 +1,63 @@
 import React from 'react';
-$(function() {
+// $(function() {
  
-    $(".item").draggable({
+//     $(".item").draggable({
 
-      // At the start of dragging
-      start : function (event , ui){
-        var target = document.getElementById(this.id);
-        target.style.zIndex=100;
-      },
+//       // At the start of dragging
+//       start : function (event , ui){
+//         var target = document.getElementById(this.id);
+//         target.style.zIndex=100;
+//       },
 
-      // At the end of dragging
-      stop : function (event , ui){
-          // console.log(event , ui);
+//       // At the end of dragging
+//       stop : function (event , ui){
+//           // console.log(event , ui);
 
-          var nowPosition = new Object();
-          var newPosition = new Array();
+//           var nowPosition = new Object();
+//           var newPosition = new Array();
 
-          // Get the current position
-          for (var i = 1; i < 6; i++) {
-              var positionData = getPosition(i);
-              nowPosition = {'name':'item'+i,'position':positionData};
+//           // Get the current position
+//           for (var i = 1; i < 6; i++) {
+//               var positionData = getPosition(i);
+//               nowPosition = {'name':'item'+i,'position':positionData};
 
-               newPosition.push(nowPosition);
-          }
+//                newPosition.push(nowPosition);
+//           }
 
-          // Sort
-          newPosition.sort(function(a,b){
-                  if( a['position'] > b['position'] ) return -1;
-                  if( a['position'] < b['position'] ) return 1;
-                  return 0;
-          });
+//           // Sort
+//           newPosition.sort(function(a,b){
+//                   if( a['position'] > b['position'] ) return -1;
+//                   if( a['position'] < b['position'] ) return 1;
+//                   return 0;
+//           });
 
-          // Put in Order
-          var number = 0;
-          for (var i = newPosition.length; i--; ) {
-              console.log(newPosition[i].name);
+//           // Put in Order
+//           var number = 0;
+//           for (var i = newPosition.length; i--; ) {
+//               console.log(newPosition[i].name);
 
-              var tmpItem = document.getElementById(newPosition[i].name);
-              tmpItem.style.order = number;
-              tmpItem.style.left = 0;
-              tmpItem.style.top = 0;
+//               var tmpItem = document.getElementById(newPosition[i].name);
+//               tmpItem.style.order = number;
+//               tmpItem.style.left = 0;
+//               tmpItem.style.top = 0;
 
-              number ++;
-          }
+//               number ++;
+//           }
 
-        // 最後にz-indexを元に戻す
-        var target = document.getElementById(this.id);
-        target.style.zIndex=0;
-      }
+//         // 最後にz-indexを元に戻す
+//         var target = document.getElementById(this.id);
+//         target.style.zIndex=0;
+//       }
 
-    });
+//     });
 
-    // position取得の関数
-    function getPosition(item){
-      var tmpItem = document.getElementById('item'+item);
-      // console.dir(tmpItem);
-      return tmpItem.offsetLeft;
-    }
-});
+//     // position取得の関数
+//     function getPosition(item){
+//       var tmpItem = document.getElementById('item'+item);
+//       // console.dir(tmpItem);
+//       return tmpItem.offsetLeft;
+//     }
+// });
 
 
 
