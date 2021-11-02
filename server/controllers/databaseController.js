@@ -3,12 +3,11 @@ const url = require('url');
 
 const databaseController = {};
 
-
-///////// SQL STRING GENERATORS /////////
+///////// SQL STRING GENERATOR FUNCS /////////
 // return SQL strings
 
 // takes an object of key value pairs to insert as row into db table where key is name of column and value is associated value
-const insertRowSQL = (table, colsVals) => {
+const insertRow = (table, colsVals) => {
   const cols = Object.keys(colsVals);
   const vals = [];
   
@@ -18,15 +17,20 @@ const insertRowSQL = (table, colsVals) => {
 
   return `INSERT INTO ${table} (${cols}) VALUES (${vals})`
 }
-
 // takes a table and an id to search by
 const findByValue = (table, col, val) => {
   return `SELECT * FROM ${table} WHERE ${col} = ${val}`;
 }
-
 // takes a table and returns all rows in that table
 const getAllRows = (table) => {
   return `SELECT * FROM ${table} LIMIT 100`;  
+}
+// takes a table and return all column names (fields) of that table
+const getAllColumns = (table) => {
+  return `FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ${table} ORDER BY ORDINAL_POSITION`
+}
+const editValue = (table, idCol, id, updateCol, newVal) => {
+  return `UPDATE ${table} SET ${updateCol} = ${newVal} WHERE ${idCol} = ${id} RETURNING *`
 }
 
 ///////// USERS /////////
@@ -66,7 +70,7 @@ databaseController.addUser = async (req, res, next) => {
   const user_info = req.params.user_info;
 
   try {
-    await db.query(insertRowSQL('users', user_info));
+    await db.query(insertRow('users', user_info));
     next();
   }
   catch {
@@ -131,7 +135,7 @@ databaseController.addGroup = async (req, res, next) => {
   const group_info = req.params.group_info;
 
   try {
-    await db.query(insertRowSQL('groups', group_info));
+    await db.query(insertRow('groups', group_info));
     next();
   }
   catch {
@@ -200,7 +204,7 @@ databaseController.addConnections = async (req, res, next) => {
   const connection_info = req.params.connection_info;
 
   try {
-    await db.query(insertRowSQL('connections', connection_info));
+    await db.query(insertRow('connections', connection_info));
     next();
   }
   catch {
@@ -211,57 +215,42 @@ databaseController.addConnections = async (req, res, next) => {
     });
   }
 };
-
 // given a connection_id and some field/val to update, update connection properties
-// CONNECTIONS
-// edit connection in db (returns row that was updated)
-  // update quality rating
-    // UPDATE connections
-    // SET quality = PUT QUALITY NUMBER HERE
-    // WHERE _connection_id = PUT ID OF CONNECTION YOU WANT TO UPDATE HERE
-    // RETURNING *;
+databaseController.editConnection = async (req, res, next) => {
+  // expects object with the following keys/values { table: tablename, idCol: val, id: val, updateCol: val, newval: val, }
+  const { table, idCol, id, updateCol, newVal } = req.params.update_info;
+  
+  try {
+    await db.query(editValue(table, idCol, id, updateCol, newVal));
+    next();
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.editConnection',
+      status: 500,
+      message: {err: 'Error in databaseController.editConnection'},
+    });
+  }
+};
 
-  // update notes
-    // UPDATE connections
-    // SET notes = PUT NOTES HERE
-    // WHERE _connection_id = PUT ID OF CONNECTION YOU WANT TO UPDATE HERE
-    // RETURNING *;
+///////// TABLE INFORMATION /////////
+// given a table name, returns the columns (fields) of that table
+databaseController.getColumns = async (req, res, next) => {
+  const table = req.params.table;
 
-  // update group
-    // UPDATE connections
-    // SET group_id = PUT NEW GROUP ID NUMBER HERE
-    // WHERE _connection_id = PUT ID OF CONNECTION YOU WANT TO UPDATE HERE
-    // RETURNING *;
-
-// add connection in db
-// INSERT INTO 
-//   connections (
-//     _connection_id,
-//     first_name,
-//     last_name,
-//     email_address,
-//     group_id,
-//     profile_picture,
-//     notes,
-//     quality,
-//     user_id
-//   ) 
-//   VALUES (
-//     100,
-//     'frank',
-//     'smith',
-//     'franksmith@email.com',
-//     4000,
-//     'someprofilepicurl.com',
-//     'met Frank at db networking event, expert in SQL',
-//     3,
-//     1000
-//   )
-
-
-
-// To list the column names of a table:
-  // SELECT COLUMN_NAME
-  // FROM INFORMATION_SCHEMA.COLUMNS
-  // WHERE TABLE_NAME = 'Your Table Name'
-  // ORDER BY ORDINAL_POSITION
+  try {
+    await db.query(getAllRows(table))
+      .then(columns => {
+        console.log(columns);
+        res.locals.columns = columns;
+      });
+    next();
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.getColumns',
+      status: 500,
+      message: {err: 'Error in databaseController.getColumns'},
+    });
+  }
+};
