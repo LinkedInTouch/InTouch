@@ -1,6 +1,8 @@
-import React from 'react';
+import React from "react";
+import Navbar from "./Navbar";
+import WelcomeHeader from "./WelcomeHeader";
 // $(function() {
- 
+
 //     $(".item").draggable({
 
 //       // At the start of dragging
@@ -59,31 +61,37 @@ import React from 'react';
 //     }
 // });
 
-
-
-
-
 export default function Connections() {
-    return (
-        <body>
+  return (
+    <div>
+        <Navbar></Navbar>
+        <WelcomeHeader></WelcomeHeader>
+      <body>
         <p> This is the Connections page. </p>
-        
-        <div id='group'> 
-        <h1> Group</h1>
-
+        <div id="group">
+          <h1> Group</h1>
         </div>
-        <div id='connections'> 
-        <h1> Connections </h1>
-        <div class="container">
-  <div id="item1" class="item content1">content1</div>
-  <div id="item2" class="item content2">content2</div>
-  <div id="item3" class="item content3">content3</div>
-  <div id="item4" class="item content4">content4</div>
-  <div id="item5" class="item content5">content5</div>
-</div>
-
-
+        <div id="connections">
+          <h1> Connections </h1>
+          <div class="container">
+            <div id="item1" class="item content1">
+              content1
+            </div>
+            <div id="item2" class="item content2">
+              content2
+            </div>
+            <div id="item3" class="item content3">
+              content3
+            </div>
+            <div id="item4" class="item content4">
+              content4
+            </div>
+            <div id="item5" class="item content5">
+              content5
+            </div>
+          </div>
         </div>
-        </body>
-    )
+      </body>
+    </div>
+  );
 }
