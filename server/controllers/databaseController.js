@@ -44,6 +44,7 @@ const databaseController = {};
 // given a user_id, find a user --> 
 databaseController.findUser = async (req, res, next) => {
   const user_id = req.params.user_id; // receive from front end
+  console.log('do we get here');
   try {
     await db.query(findByValue('users', '_id', user_id))
       .then(userData => {
