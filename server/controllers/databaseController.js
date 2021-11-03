@@ -83,12 +83,12 @@ databaseController.addUser = async (req, res, next) => {
 // given a user_id, get all that users connections // TODO: parse connections so frontend receives an array?
 databaseController.getConnections = async (req, res, next) => {
   // const user_id = req.params.user_id; // will eventually need to parse connections based on user logged in
-
+  console.log('hello');
   try {
-    await db.query(getAllRows(connections))
+    await db.query(getAllRows('connections'))
       .then(connections => {
         console.log(connections);
-        res.locals.connections = connections;
+        res.locals.connections = connections.rows;
       });
     next();
   }

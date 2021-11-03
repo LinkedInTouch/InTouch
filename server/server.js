@@ -13,7 +13,7 @@ app.use((req, res, next) => {
   next();
 });
 // put routes for database here
-app.use('/apidatabse', databaseRouter);
+app.use('/apiDatabase', databaseRouter);
 
 
 app.use((err, req, res, next) => {
