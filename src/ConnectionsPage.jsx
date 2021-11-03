@@ -52,9 +52,17 @@ export default function ConnectionsPage() {
     })
   }));
 
+  // function to add connections to board. if there are connections existing in the group, 
   const addConnectionToBoard = (connectionId) => { 
-    const groupConnections = ConnectionList.filter((connection) => connectionId === connection.id);
-    setGroup((group) => [...group, groupConnections[0]])
+    const draggedConnection = ConnectionList.filter((connection) => connectionId === connection.id);
+     //check if object exists in group already
+     // set obj to null
+    let obj = null; 
+      // if the object with the connection id exists in the array
+      obj = group.find((o) => {
+        if (o.Connections.id === connectionId) return true;
+        });
+        if (!obj) setGroup((group) => [...group, draggedConnection[0]])
    };
 
   return (
