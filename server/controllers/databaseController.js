@@ -44,13 +44,11 @@ const databaseController = {};
 // given a user_id, find a user --> 
 databaseController.findUser = async (req, res, next) => {
   const user_id = req.params.user_id; // receive from front end
-
   try {
     await db.query(findByValue('users', '_id', user_id))
       .then(userData => {
-        console.log(userData);
+        // console.log(userData);
         res.locals.userData = userData.rows[0];
-        // console.log('inside finduser', res.locals.userData);
       });
     // what happens when the user isn't found in the db??
     next();  
@@ -83,12 +81,12 @@ databaseController.addUser = async (req, res, next) => {
 // given a user_id, get all that users connections // TODO: parse connections so frontend receives an array?
 databaseController.getConnections = async (req, res, next) => {
   // const user_id = req.params.user_id; // will eventually need to parse connections based on user logged in
-
+  console.log('hello');
   try {
-    await db.query(getAllRows(connections))
+    await db.query(getAllRows('connections'))
       .then(connections => {
-        console.log(connections);
-        res.locals.connections = connections;
+        // console.log(connections);
+        res.locals.connections = connections.rows;
       });
     next();
   }
@@ -149,10 +147,10 @@ databaseController.addGroup = async (req, res, next) => {
 databaseController.getGroups = async (req, res, next) => {
 
   try {
-    await db.query(getAllRows(groups))
+    await db.query(getAllRows('groups'))
       .then(groups => {
-        console.log(groups);
-        res.locals.connections = groups;
+        // console.log(groups);
+        res.locals.groups = groups.rows;
       });
     next();
   }
@@ -161,6 +159,25 @@ databaseController.getGroups = async (req, res, next) => {
       log: 'Error in databaseController.getGroups',
       status: 500,
       message: {err: 'Error in databaseController.getGroups'},
+    });
+  }
+};
+// given group_id and connection_id params
+databaseController.addToGroup = async (req, res, next) => {
+  // const { table, idCol, id, updateCol, newVal } = req.body;
+  const group_id = req.params.group_id;
+  const newVal = req.params.connection_id;
+  const queryString = `UPDATE groups SET connections = array_append(connections, '${newVal}') WHERE _group_id = ${group_id}`
+
+  try {
+    await db.query(queryString);
+    next();
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.addToGroup',
+      status: 500,
+      message: {err: 'Error in databaseController.addToGroup'},
     });
   }
 };
@@ -181,10 +198,10 @@ databaseController.findConnection = async (req, res, next) => {
   const connection_id = req.params.connection_id; // receive from front end
 
   try {
-    await db.query(findByValue(connections, _connection_id, connection_id))
+    await db.query(findByValue('connections', '_connection_id', connection_id))
       .then(connectionData => {
         console.log(connectionData);
-        res.locals.connectionData = connectionData;
+        res.locals.connection = connectionData.rows[0];
       });
     // what happens when the connection isn't found in the db??
     next();  
@@ -217,7 +234,7 @@ databaseController.addConnections = async (req, res, next) => {
 // given a connection_id and some field/val to update, update connection properties
 databaseController.editConnection = async (req, res, next) => {
   // expects object with the following keys/values { table: tablename, idCol: val, id: val, updateCol: val, newval: val, }
-  const { table, idCol, id, updateCol, newVal } = req.params.update_info;
+  const { table, idCol, id, updateCol, newVal } = req.body;
   
   try {
     await db.query(editValue(table, idCol, id, updateCol, newVal));
