@@ -42,7 +42,7 @@ function LinkedInPage() {
     <div>
       <Navbar></Navbar>
       <WelcomeHeader></WelcomeHeader>
-
+      <h1>Welcome to inTouch!</h1>
     </div>
   )
 }
