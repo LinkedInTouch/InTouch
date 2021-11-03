@@ -83,7 +83,7 @@ const Modal = ({ isVisible, hideModal }) => {
             <SModal>
               <div className="modalContainer">
                 <img id="icon" className="icon" src="https://cdn5.vectorstock.com/i/1000x1000/42/09/connection-vector-28634209.jpg" height="200" width="200"></img>
-                <h1 id="name" className="connectionName">Will Sentance</h1>
+                <h1 id="name" className="connectionName">Bill Periodt</h1>
                 <p className="leftText left" id="groups">Groups</p>
                 <form id="dropdown" action="/action_page.php">
                   <label for="groups"></label>
