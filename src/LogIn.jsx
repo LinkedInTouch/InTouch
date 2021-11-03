@@ -12,7 +12,6 @@ function LinkedInPage() {
     onSuccess: (code) => {
       console.log('code',code);
       setCode(code);
-      getAccessToken(code);
       setErrorMessage("");
     },
     scope: "r_emailaddress r_liteprofile",
