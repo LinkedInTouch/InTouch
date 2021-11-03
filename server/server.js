@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const PORT = 3000;
-
+const LinkedInCallback = require('react-linkedin-login-oauth2');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../client')));
@@ -12,27 +12,21 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api', (req,res) => {
+app.get('/linkedin', (req,res) => {
   console.log('req',req.query.code);
   res.locals.accessToken = req.query.code;
+  // res.redirect
+  // LinkedIn();
+  // res.sendFile(path.resolve(__dirname,'../src/index.html'));
+  // res.send(LinkedInCallback());
+  res.send(res.locals.accessToken);
 })
-
-app.get('/api', (req,res) => {
-  res.sendFile(path.resolve(__dirname,'../src/index.html'));
-})
-  
-
-// app.post('https://www.linkedin.com/oauth/v2/accessToken', (req,res) => {
-//   req.body = {
-//     grant_type
-//   }
-// })
 
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 500,
-    message: { err: 'An error occurred' },
+    message: { err: `Error in unknown middleware error ${err}` },
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);
@@ -45,3 +39,19 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+
+
+
+
+
+
+// app.get('/api', (req,res) => {
+  
+  
+// })
+
+// app.post('https://www.linkedin.com/oauth/v2/accessToken', (req,res) => {
+//   req.body = {
+//     grant_type
+//   }
+// })

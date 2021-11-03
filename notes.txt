@@ -1,0 +1,9 @@
+Backend may need a middleware/controller in order to route information between 
+the backend and frontend - research middleware functionality
+The server imports the required controllers. Your server points the endpoints to the controller that holds the logic for the middleware
+Look into using cookies to persist login and authentication - Shamilah's example (res.locals.login)
+
+find a way to close popup window upon authentication
+serve the right page upon authentication
+
+when solved, work on using dummy data/lauras database to render out frontend
