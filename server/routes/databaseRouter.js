@@ -23,7 +23,7 @@ router.get('/connection/:connection_id',
 router.post('/editconnection/:connection_id/',
   databaseController.editConnection,
   databaseController.findConnection,
-  (req, res) => res.status(200).json(res.locals)
+  (req, res) => res.status(200).json(res.locals.connection)
 );
 // when adding a connection to a group, req body must have { table: connections, idCol: _connection_id, id: connection_id, updateCol: group_id, newval: group_id }
 // expect object with connection info
