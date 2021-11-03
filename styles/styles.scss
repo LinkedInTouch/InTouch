@@ -1,3 +1,19 @@
 *{
   background-color: aqua;
 }
+
+.connectionsPage{
+  display: flex;
+}
+
+.connectionImage{
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.groupsContainer{
+  border-color: black;
+}
