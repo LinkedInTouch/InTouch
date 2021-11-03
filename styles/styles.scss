@@ -1,6 +1,6 @@
-// *{
-//   background-color: aqua;
-// }
+*{
+  background-color: #0072b1;
+}
 
 .connectionsPage{
   display: flex;
@@ -83,4 +83,47 @@
 
 .right{
   grid-area: right;
+}
+.welcomeHeader{
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  // width: 30%;
+  // height: 10%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0072b1;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border: 1px solid;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  color:white;
+  background-color: #0072b1;
+}
+#profilePic{
+  border-radius: 50%;
+}
+#signup{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

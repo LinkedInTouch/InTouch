@@ -1,6 +1,8 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
+import Navbar from "./Navbar";
+import WelcomeHeader from "./WelcomeHeader";
 
 // `${window.location.origin}/linkedin`
 function LinkedInPage() {
@@ -8,7 +10,7 @@ function LinkedInPage() {
     clientId: "77l2yl9ia652i4",
     redirectUri: "http://localhost:8080/linkedin",
     onSuccess: (code) => {
-      console.log(code);
+      console.log('code',code);
       setCode(code);
       setErrorMessage("");
     },
@@ -19,12 +21,13 @@ function LinkedInPage() {
       setErrorMessage(error.errorMessage);
     },
   });
-  const linkedin = "https://i.stack.imgur.com/mKpeu.png"
   const [code, setCode] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
+  const linkedin = "https://i.stack.imgur.com/mKpeu.png"
+
   
   return !code ? (
-    <div>
+    <div id="signup">
       <img
         onClick={linkedInLogin}
         src={linkedin}
@@ -37,7 +40,9 @@ function LinkedInPage() {
   :
   (
     <div>
-        {code}
+      <Navbar></Navbar>
+      <WelcomeHeader></WelcomeHeader>
+
     </div>
   )
 }

@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const databaseRouter = require('./routes/databaseRouter');
+const axios = require('axios');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,6 +15,7 @@ app.use((req, res, next) => {
 });
 // put routes for database here
 app.use('/api/database', databaseRouter);
+
 
 
 app.use((err, req, res, next) => {
@@ -33,3 +35,4 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+

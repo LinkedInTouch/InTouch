@@ -6,8 +6,10 @@ import {
   Link
 } from 'react-router-dom';
 import LogIn from './LogIn';
-import Connections from './Connections';
+import ConnectionsPage from './ConnectionsPage';
 import Calendar from './Calendar';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { LinkedInCallback } from "react-linkedin-login-oauth2";
 import Modal from "./Modal";
 import useModal from "./useModal";
@@ -19,21 +21,6 @@ export default function App() {
   return (
     <Router>
     <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-           <li>
-            <Link to="/connections">Connections</Link>
-          </li>
-          <li>
-            <Link to="/calendar">Calendar</Link>
-          </li>
-        </ul>
-      </nav>
-      <hr />
-
       {/*
         A <Switch> looks through all its children <Route>
         elements and renders the first one whose path
@@ -52,14 +39,16 @@ export default function App() {
         </Route>
 
          <Route path="/connections">
-          <Connections />
-          <div>
-            <button onClick={toggleModal}>
-              Show modal
-            </button>
-            <Modal isVisible={isVisible} hideModal={toggleModal} />
-          </div>
-        </Route>
+            <DndProvider backend={HTML5Backend}>
+              <ConnectionsPage />
+              <div>
+                <button onClick={toggleModal}>
+                  Show modal
+                </button>
+                <Modal isVisible={isVisible} hideModal={toggleModal} />
+              </div>
+            </DndProvider>
+          </Route>
         
         <Route path="/calendar">
           <Calendar />
