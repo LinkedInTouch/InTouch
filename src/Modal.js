@@ -68,7 +68,7 @@ const Stextarea = styled.textarea`
   text-align: left-align;
 `;
 
-const Modal = ({ isVisible, hideModal }) => {
+const Modal = ({ isVisible, hideModal, firstName }) => {
 
   return isVisible
     ? createPortal(
@@ -82,8 +82,8 @@ const Modal = ({ isVisible, hideModal }) => {
           >
             <SModal>
               <div className="modalContainer">
-                <img id="icon" className="icon" src="https://cdn5.vectorstock.com/i/1000x1000/42/09/connection-vector-28634209.jpg" height="200" width="200"></img>
-                <h1 id="name" className="connectionName">Bill Periodt</h1>
+                <img id="icon" className="icon" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png" height="200" width="200"></img>
+                <h1 id="name" className="connectionName">{firstName}</h1>
                 <p className="leftText left" id="groups">Groups</p>
                 <form id="dropdown" action="/action_page.php">
                   <label for="groups"></label>
