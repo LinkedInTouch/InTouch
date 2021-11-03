@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
 
 // `${window.location.origin}/linkedin`
@@ -8,8 +8,9 @@ function LinkedInPage() {
     clientId: "77l2yl9ia652i4",
     redirectUri: "http://localhost:8080/linkedin",
     onSuccess: (code) => {
-      console.log(code);
+      console.log('code',code);
       setCode(code);
+      getAccessToken(code);
       setErrorMessage("");
     },
     scope: "r_emailaddress r_liteprofile",
@@ -37,6 +38,7 @@ function LinkedInPage() {
   :
   (
     <div>
+      <h1></h1>
         {code}
     </div>
   )
