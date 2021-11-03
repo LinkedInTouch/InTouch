@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import Connection from "./Connection";
-<<<<<<< HEAD
 import { useDrop } from "react-dnd";
-=======
->>>>>>> dev
 import Navbar from "./Navbar";
 import WelcomeHeader from "./WelcomeHeader";
 
@@ -42,7 +39,6 @@ export default function ConnectionsPage(props) {
     if (!obj) setGroup((group) => [...group, draggedConnection[0]]);
   };
 
-<<<<<<< HEAD
   let ConnectionList = [
       {
           id: 1,
@@ -67,35 +63,10 @@ export default function ConnectionsPage(props) {
   
   console.log(getConnections(1002));
   return ( 
-    
-    (<Navbar />),
-    (<WelcomeHeader />),
-    
-    //we need to generate an array of objects before the return statement where each object represents a connection
-    <body className = 'connectionsPage'>
-      <p> This is the Connections page. </p>
-        <div id="group">
-          <h1> Groups</h1>
-          <div className="groupsContainer" >
-          {group.map((connection) =>{
-            return <Connection url={connection.url} id={connection.id} />
-          })
-          
-          }
-          </div>
-        </div>
-        <div id="connections">
-          <h1> Connections </h1>
-          <div className="connectionsContainer">
-            {connectionsArr.map((connection) => {
-              return <Connection url='https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png' id={connection._connection_id} company={connection.company} dateConnected={connection.date_connected} firstName={connection.first_name} lastName={connection.last_name} groupId={connection.group_id} notes={connection.notes} position={connection.position} quality={connection.quality} profilePic={connection.profile_picture}/>
-          })}
-=======
-export default function ConnectionsPage() {
-  return (
     <div>
-      <Navbar></Navbar>
-      <WelcomeHeader></WelcomeHeader>
+      <Navbar />
+      <WelcomeHeader />
+    
       <body className = 'connectionsPage'>
         <p> This is the Connections page. </p>
           <div id="group">
@@ -111,12 +82,11 @@ export default function ConnectionsPage() {
           <div id="connections">
             <h1> Connections </h1>
             <div className="connectionsContainer">
-              {ConnectionList.map((connection) => {
-                return <Connection url={connection.url} id={connection.id} />
+              {connectionsArr.map((connection) => {
+                return <Connection url='https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png' id={connection._connection_id} company={connection.company} dateConnected={connection.date_connected} firstName={connection.first_name} lastName={connection.last_name} groupId={connection.group_id} notes={connection.notes} position={connection.position} quality={connection.quality} profilePic={connection.profile_picture}/>
             })}
             </div>
->>>>>>> dev
-          </div>
+            </div>
       </body>
     </div>
   );
