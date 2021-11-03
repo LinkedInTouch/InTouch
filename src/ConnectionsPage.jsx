@@ -26,12 +26,9 @@ const ConnectionList = [
 export default function ConnectionsPage() {
   
 
-  const [group, setGroup] = useState([
+  const [group, setGroup] = useState(
     
-    {
-      Name: "Kinda Like",
-      Contact: "Monthly",
-      Connections: [
+     [
         {
           id: 1,
           url: "https://media-exp1.licdn.com/dms/image/C4E03AQGVhVOrOykpVg/profile-displayphoto-shrink_800_800/0/1620960712854?e=1641427200&v=beta&t=0DjyYOExOB02i0Hp7FKVXKD_XIetFlcM1KQBG94pvAE",
@@ -41,8 +38,7 @@ export default function ConnectionsPage() {
           url: "https://media-exp1.licdn.com/dms/image/C4E03AQE9g3iBziidTg/profile-displayphoto-shrink_800_800/0/1610317078397?e=1641427200&v=beta&t=Jn5CWuyUrYC49rEtNWid3QAvgcnc2dPu_XWmC8mlUXc",
         },
       ],
-    },
-  ]);
+  );
 
   const [{isOver}, drop ] = useDrop(() => ({
     accept: "connectionImage",
@@ -60,7 +56,7 @@ export default function ConnectionsPage() {
     let obj = null; 
       // if the object with the connection id exists in the array
       obj = group.find((o) => {
-        if (o.Connections.id === connectionId) return true;
+        if (o.id === connectionId) return true;
         });
         if (!obj) setGroup((group) => [...group, draggedConnection[0]])
    };
