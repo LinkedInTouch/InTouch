@@ -13,9 +13,14 @@ export default function Connection (props) {
             isDragging: !!monitor.isDragging(),
         })
     }));
+
+   
     return (
         <span>
-            <img onClick={toggleModal} className='connectionImage' ref = {drag} src = {props.url}/>
+            <img onClick={toggleModal} className='connectionImage' 
+            ref = {drag} 
+            src = {props.url} 
+            style = {{ border: isDragging ? '3px solid white' : '0px'}}/>
             <Modal firstName={props.firstName} isVisible={isVisible} hideModal={toggleModal}/>
         </span>
     )
