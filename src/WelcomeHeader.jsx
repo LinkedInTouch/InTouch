@@ -2,7 +2,8 @@ import React from 'react'
 const profilePic = "https://i.ibb.co/qkxcnFf/profilepic.jpg";
 const firstName = "Joel";
 const lastName = "Park";
-const email = "joelpark97@gmail.com"
+const email = "joelpark97@gmail.com";
+
 export default function WelcomeHeader() {
   return (
 

@@ -7,12 +7,12 @@ import {
 } from 'react-router-dom';
 import LogIn from './LogIn';
 import ConnectionsPage from './ConnectionsPage';
-import Calendar from './Calendar';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { LinkedInCallback } from "react-linkedin-login-oauth2";
 import Modal from "./Modal";
 import useModal from "./useModal";
+import CalendarComponent from './CalendarComponent';
 
 
 export default function App() {
@@ -51,7 +51,7 @@ export default function App() {
           </Route>
         
         <Route path="/calendar">
-          <Calendar />
+          <CalendarComponent />
         </Route> 
        
       </Switch>
