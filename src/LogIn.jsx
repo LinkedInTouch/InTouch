@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
+import Navbar from "./Navbar";
+import WelcomeHeader from "./WelcomeHeader";
 
 // `${window.location.origin}/linkedin`
 function LinkedInPage() {
@@ -20,12 +22,13 @@ function LinkedInPage() {
       setErrorMessage(error.errorMessage);
     },
   });
-  const linkedin = "https://i.stack.imgur.com/mKpeu.png"
   const [code, setCode] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
+  const linkedin = "https://i.stack.imgur.com/mKpeu.png"
+
   
   return !code ? (
-    <div>
+    <div id="signup">
       <img
         onClick={linkedInLogin}
         src={linkedin}
@@ -38,8 +41,9 @@ function LinkedInPage() {
   :
   (
     <div>
-      <h1></h1>
-        {code}
+      <Navbar></Navbar>
+      <WelcomeHeader></WelcomeHeader>
+
     </div>
   )
 }

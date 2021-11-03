@@ -14,21 +14,6 @@ export default function App() {
   return (
     <Router>
     <div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-           <li>
-            <Link to="/connections">Connections</Link>
-          </li>
-          <li>
-            <Link to="/calendar">Calendar</Link>
-          </li>
-        </ul>
-      </nav>
-      <hr />
-
       {/*
         A <Switch> looks through all its children <Route>
         elements and renders the first one whose path
