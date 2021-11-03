@@ -1,5 +1,7 @@
 import React from "react";
 import Connection from "./Connection";
+import Navbar from "./Navbar";
+import WelcomeHeader from "./WelcomeHeader";
 
 const group = [
   {
@@ -33,26 +35,30 @@ const ConnectionList = [
 
 export default function ConnectionsPage() {
   return (
-    <body className = 'connectionsPage'>
-      <p> This is the Connections page. </p>
-        <div id="group">
-          <h1> Groups</h1>
-          <div className="groupsContainer" >
-          {group.map((connection) =>{
-            return <Connection url={connection.url} id={connection.id} />
-          })
-          
-          }
-          </div>
-        </div>
-        <div id="connections">
-          <h1> Connections </h1>
-          <div className="connectionsContainer">
-            {ConnectionList.map((connection) => {
+    <div>
+      <Navbar></Navbar>
+      <WelcomeHeader></WelcomeHeader>
+      <body className = 'connectionsPage'>
+        <p> This is the Connections page. </p>
+          <div id="group">
+            <h1> Groups</h1>
+            <div className="groupsContainer" >
+            {group.map((connection) =>{
               return <Connection url={connection.url} id={connection.id} />
-          })}
+            })
+            
+            }
+            </div>
           </div>
-        </div>
-    </body>
+          <div id="connections">
+            <h1> Connections </h1>
+            <div className="connectionsContainer">
+              {ConnectionList.map((connection) => {
+                return <Connection url={connection.url} id={connection.id} />
+            })}
+            </div>
+          </div>
+      </body>
+    </div>
   );
 }
