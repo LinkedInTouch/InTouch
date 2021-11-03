@@ -162,8 +162,8 @@ databaseController.getGroups = async (req, res, next) => {
     });
   }
 };
+// given group_id and connection_id params
 databaseController.addToGroup = async (req, res, next) => {
-  // expects object with the following keys/values { table: tablename, idCol: val, id: val, updateCol: val, newval: val, }
   // const { table, idCol, id, updateCol, newVal } = req.body;
   const group_id = req.params.group_id;
   const newVal = req.params.connection_id;
