@@ -18,6 +18,72 @@
   border-color: black;
 }
 
+.modalContainer{
+  display: grid;
+  background-color: antiquewhite;
+  border-radius: 3%;
+  padding: 3vh;
+  grid-template-areas: 
+  'icon connectionName connectionName'
+  'groupst dropdown dropdown'
+  'notes notesta notesta'
+  'company companyp companyp'
+  'positiont positionp positionp'
+  ;
+}
+
+.icon{
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  grid-area: icon;
+}
+
+.connectionName{
+  color: rgba(13, 13, 14, 0.968);
+  grid-area: connectionName;
+}
+
+#groups{
+  grid-area: groupst
+}
+
+#dropdown{
+  color: red;
+  grid-area: dropdown;
+}
+#notes{
+  grid-area: notes;
+}
+
+#notesta{
+  grid-area: notesta;
+}
+
+#company{
+  grid-area: company;
+}
+
+#companyp{
+  grid-area: companyp;
+}
+
+#positiont{
+  grid-area: positiont;
+}
+
+#positionp{
+  grid-area: positionp;
+}
+
+.lefttext{
+  font-weight: bold;
+  grid-area: left;
+}
+
+.right{
+  grid-area: right;
+}
 .welcomeHeader{
   display:flex;
   flex-direction: row;
