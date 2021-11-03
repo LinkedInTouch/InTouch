@@ -44,13 +44,11 @@ const databaseController = {};
 // given a user_id, find a user --> 
 databaseController.findUser = async (req, res, next) => {
   const user_id = req.params.user_id; // receive from front end
-
   try {
     await db.query(findByValue('users', '_id', user_id))
       .then(userData => {
-        console.log(userData);
+        // console.log(userData);
         res.locals.userData = userData.rows[0];
-        // console.log('inside finduser', res.locals.userData);
       });
     // what happens when the user isn't found in the db??
     next();  
@@ -87,7 +85,7 @@ databaseController.getConnections = async (req, res, next) => {
   try {
     await db.query(getAllRows('connections'))
       .then(connections => {
-        console.log(connections);
+        // console.log(connections);
         res.locals.connections = connections.rows;
       });
     next();
@@ -149,10 +147,10 @@ databaseController.addGroup = async (req, res, next) => {
 databaseController.getGroups = async (req, res, next) => {
 
   try {
-    await db.query(getAllRows(groups))
+    await db.query(getAllRows('groups'))
       .then(groups => {
-        console.log(groups);
-        res.locals.connections = groups;
+        // console.log(groups);
+        res.locals.groups = groups.rows;
       });
     next();
   }
@@ -181,10 +179,10 @@ databaseController.findConnection = async (req, res, next) => {
   const connection_id = req.params.connection_id; // receive from front end
 
   try {
-    await db.query(findByValue(connections, _connection_id, connection_id))
+    await db.query(findByValue('connections', '_connection_id', connection_id))
       .then(connectionData => {
         console.log(connectionData);
-        res.locals.connectionData = connectionData;
+        res.locals.connection = connectionData.rows[0];
       });
     // what happens when the connection isn't found in the db??
     next();  
@@ -217,7 +215,7 @@ databaseController.addConnections = async (req, res, next) => {
 // given a connection_id and some field/val to update, update connection properties
 databaseController.editConnection = async (req, res, next) => {
   // expects object with the following keys/values { table: tablename, idCol: val, id: val, updateCol: val, newval: val, }
-  const { table, idCol, id, updateCol, newVal } = req.params.update_info;
+  const { table, idCol, id, updateCol, newVal } = req.body;
   
   try {
     await db.query(editValue(table, idCol, id, updateCol, newVal));
