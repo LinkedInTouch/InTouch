@@ -3,9 +3,6 @@ const router = express.Router();
 
 const databaseController = require('../controllers/databaseController');
 
-router.get('/',
-  (req, res) => res.status(200).send('hello')
-);
 // when sending a request to apiDatabase endpoint, find the user, then get the connections, 
 // expect locals object with keys: userData (object), connections (array of objects), groups (array of objects) 
 router.get('/:user_id',
