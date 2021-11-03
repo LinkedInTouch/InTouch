@@ -9,8 +9,13 @@ import LogIn from './LogIn';
 import Connections from './Connections';
 import Calendar from './Calendar';
 import { LinkedInCallback } from "react-linkedin-login-oauth2";
+import Modal from "./Modal";
+import useModal from "./useModal";
+
 
 export default function App() {
+  const {isVisible, toggleModal} = useModal();
+
   return (
     <Router>
     <div>
@@ -48,6 +53,12 @@ export default function App() {
 
          <Route path="/connections">
           <Connections />
+          <div>
+            <button onClick={toggleModal}>
+              Show modal
+            </button>
+            <Modal isVisible={isVisible} hideModal={toggleModal} />
+          </div>
         </Route>
         
         <Route path="/calendar">
