@@ -6,8 +6,10 @@ import {
   Link
 } from 'react-router-dom';
 import LogIn from './LogIn';
-import Connections from './Connections';
+import ConnectionsPage from './ConnectionsPage';
 import Calendar from './Calendar';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { LinkedInCallback } from "react-linkedin-login-oauth2";
 
 export default function App() {
@@ -32,8 +34,10 @@ export default function App() {
         </Route>
 
          <Route path="/connections">
-          <Connections />
-        </Route>
+            <DndProvider backend={HTML5Backend}>
+              <ConnectionsPage />
+            </DndProvider>
+          </Route>
         
         <Route path="/calendar">
           <Calendar />
