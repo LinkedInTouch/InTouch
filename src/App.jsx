@@ -42,8 +42,8 @@ export default function App() {
           <LogIn></LogIn>
         </Route>
 
-        <Route exact path="/linkedin">
-          <LinkedInCallback></LinkedInCallback>
+        <Route exact path="/linkedin" component={LinkedInCallback}>
+
         </Route>
 
          <Route path="/connections">
