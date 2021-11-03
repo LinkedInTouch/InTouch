@@ -162,6 +162,25 @@ databaseController.getGroups = async (req, res, next) => {
     });
   }
 };
+databaseController.addToGroup = async (req, res, next) => {
+  // expects object with the following keys/values { table: tablename, idCol: val, id: val, updateCol: val, newval: val, }
+  // const { table, idCol, id, updateCol, newVal } = req.body;
+  const group_id = req.params.group_id;
+  const newVal = req.params.connection_id;
+  const queryString = `UPDATE groups SET connections = array_append(connections, '${newVal}') WHERE _group_id = ${group_id}`
+
+  try {
+    await db.query(queryString);
+    next();
+  }
+  catch {
+    next({
+      log: 'Error in databaseController.addToGroup',
+      status: 500,
+      message: {err: 'Error in databaseController.addToGroup'},
+    });
+  }
+};
 
 ///////// CONNECTIONS /////////
   // fields for connections table:
