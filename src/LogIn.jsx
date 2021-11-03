@@ -24,15 +24,21 @@ function LinkedInPage() {
   const [code, setCode] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
   const linkedin = "https://i.stack.imgur.com/mKpeu.png"
+  const inTouch = "https://i.ibb.co/55vQPBN/InTouch.jpg"
 
   
   return !code ? (
     <div id="signup">
       <img
+        src={inTouch}
+        alt="In Touch Logo"
+        style={{ maxWidth: "180px", border: ".5px solid gray", borderRadius: "2px"}}
+      />
+      <img
         onClick={linkedInLogin}
         src={linkedin}
         alt="Log in with Linked In"
-        style={{ maxWidth: "180px", cursor: "pointer" }}
+        style={{ maxWidth: "180px", cursor: "pointer",border: ".5px solid gray",borderRadius: "2px" }}
      />
     </div>
     
@@ -42,7 +48,7 @@ function LinkedInPage() {
     <div>
       <Navbar></Navbar>
       <WelcomeHeader></WelcomeHeader>
-      <h1>Welcome to inTouch!</h1>
+      <h1>Welcome to InTouch!</h1>
     </div>
   )
 }
