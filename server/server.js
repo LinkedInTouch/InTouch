@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const PORT = 3000;
+const databaseRouter = require('./routes/databaseRouter');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
