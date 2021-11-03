@@ -11,8 +11,13 @@ import Calendar from './Calendar';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { LinkedInCallback } from "react-linkedin-login-oauth2";
+import Modal from "./Modal";
+import useModal from "./useModal";
+
 
 export default function App() {
+  const {isVisible, toggleModal} = useModal();
+
   return (
     <Router>
     <div>
@@ -36,6 +41,12 @@ export default function App() {
          <Route path="/connections">
             <DndProvider backend={HTML5Backend}>
               <ConnectionsPage />
+              <div>
+                <button onClick={toggleModal}>
+                  Show modal
+                </button>
+                <Modal isVisible={isVisible} hideModal={toggleModal} />
+              </div>
             </DndProvider>
           </Route>
         

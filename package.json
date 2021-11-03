@@ -59,6 +59,7 @@
     "react-router-dom": "^5.3.0",
     "regenerator-runtime": "^0.13.9",
     "resolve-cwd": "^3.0.0",
+    "styled-components": "^5.3.3",
     "superagent": "^6.1.0",
     "supertest": "^6.1.6"
   }
