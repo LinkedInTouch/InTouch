@@ -141,7 +141,12 @@ li a:hover {
   // max-width: 180px;
   // border: .5px solid;
 }
-
+#welcome{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .rbc-today{
   background-color: whitesmoke;
 }
